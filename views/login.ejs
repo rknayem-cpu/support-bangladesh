@@ -1,0 +1,47 @@
+<%- include('partials/header') %>
+
+<div class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl w-full max-w-sm mx-auto transform transition duration-500 ease-in-out hover:scale-105">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-6">Welcome Back!</h1>
+        <p class="text-center text-gray-600 mb-8">Sign in to your account.</p>
+
+        <form action="/login" method="post" class="space-y-6">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700 sr-only">Username</label>
+                <div class="relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input type="text" name="username" id="username" placeholder="Username" required
+                           class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg placeholder-gray-500 focus:outline-none focus:ring-purple-500 focus:border-purple-500 transition duration-300">
+                </div>
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 sr-only">Password</label>
+                <div class="relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input type="password" name="password" id="password" placeholder="Password" required
+                           class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg placeholder-gray-500 focus:outline-none focus:ring-purple-500 focus:border-purple-500 transition duration-300">
+                </div>
+            </div>
+
+            <button type="submit"
+                    class="w-full py-3 mt-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-bold rounded-lg shadow-lg hover:from-purple-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-300 transform hover:scale-105">
+                Log In
+            </button>
+        </form>
+
+        <div class="mt-8 text-center text-sm">
+            <a href="#" class="font-medium text-purple-600 hover:text-purple-500 hover:underline">Forgot password?</a>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

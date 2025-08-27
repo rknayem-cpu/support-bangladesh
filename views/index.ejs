@@ -1,11 +1,28 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<%- include('partials/header') %>
+<div class="w-full p-5 pt-0 flex flex-col items-center justify-center font-sans text-gray-800">
+
+    <div class="w-full max-w-4xl text-center">
+        <h1 class="text-4xl md:text-7xl font-bold font-serif italic text-lime-400 drop-shadow-lg">
+            সাপেোর্ট বাংলাদেশ
+        </h1>
+        <p class="mt-4 text-xl md:text-3xl text-white font-light">Your support is very important to us.</p>
+    </div>
+
+    <div class="mt-12 w-full max-w-6xl flex flex-col md:flex-row gap-6 md:gap-8 items-center justify-center">
+        <div class="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-2xl transform transition-transform duration-500 hover:scale-105 hover:shadow-green-500/50">
+            <img class="w-full h-full object-cover" src="https://media.istockphoto.com/id/625736338/photo/stack-of-hands-showing-unity.jpg?s=612x612&w=0&k=20&c=20mAQjGRQ5XVKqHe2qFguqGZ4dwto6lxxinciCfnVI0=" alt="Unity and support through a stack of hands">
+        </div>
+        <div class="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-2xl transform transition-transform duration-500 hover:scale-105 hover:shadow-blue-500/50">
+            <img class="w-full h-full object-cover" src="https://media.istockphoto.com/id/1436319269/vector/group-of-diverse-people-with-arms-and-hands-raised-towards-a-hand-painted-heart-charity.jpg?s=1024x1024&w=is&k=20&c=zcKJWOUSCNFeAxcwSpTsTX5Alkb5uH1q-r0aIEqL0aI=" alt="Diverse group of people with hands raised around a heart">
+        </div>
+    </div>
+
+    <div class="mt-12">
+        <a href="/register" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-green-600 font-semibold rounded-full shadow-lg transition-all duration-300 hover:bg-green-600 hover:text-white hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300">
+          
+            <span class="text-lg" >Go to </span>
+        </a>
+    </div>
+
+</div>
+<%- include('partials/footer') %>

@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+mongoose.connect('mongodb+srv://hubweb86:bWbrKagGrzWgiG2Y@cluster0.ndhgpus.mongodb.net/?retryWrites=true&w=majority');
+
 
 module.exports = router;
