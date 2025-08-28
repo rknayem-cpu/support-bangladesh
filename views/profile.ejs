@@ -1,13 +1,20 @@
 <%- include('partials/header') %>
 
 <div class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div class="bg-white p-8 md:p-12 rounded-2xl  w-full max-w-sm mx-auto text-center transform transition duration-500 ease-in-out hover:scale-105">
-        
-        <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-purple-100 flex items-center justify-center">
+    <div class="bg-transparent p-8 md:p-12 rounded-2xl relative bottom-6
+     w-full max-w-sm mx-auto text-center transform transition duration-500 ease-in-out hover:scale-102">
+        <% if  (!user.imageUrl){%>
+<div class="w-24 h-24 mx-auto mb-6 rounded-full bg-purple-100 flex items-center justify-center">
             <svg class="w-16 h-16 text-purple-600" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
             </svg>
         </div>
+        <%} else{%>
+<img src="<%- user.imageUrl %>" class="w-24 h-24 mx-auto mb-6 rounded-full bg-purple-100 flex items-center justify-center">
+            
+        
+       <% } %>
+        
 
         <h1 class="text-3xl font-extrabold text-gray-800 mb-2">
             Welcome, <%= user.username %>!

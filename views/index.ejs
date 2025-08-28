@@ -1,28 +1,99 @@
-<%- include('partials/header') %>
-<div class="w-full p-5 pt-0 flex flex-col items-center justify-center font-sans text-gray-800">
 
-    <div class="w-full max-w-4xl text-center">
-        <h1 class="text-4xl md:text-7xl font-bold font-serif italic text-lime-400 drop-shadow-lg">
-            সাপেোর্ট বাংলাদেশ
-        </h1>
-        <p class="mt-4 text-xl md:text-3xl text-white font-light">Your support is very important to us.</p>
-    </div>
+    
+    <%- include('partials/header') %>
+    
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="hero-pattern py-16 md:py-24 px-4">
+            <div class="container mx-auto max-w-6xl text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-lime-300 drop-shadow-md">
+                    সাপোর্ট বাংলাদেশ
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 text-lime-100 max-w-2xl mx-auto">
+                    আপনার সহযোগিতা আমাদের জন্য অত্যন্ত গুরুত্বপূর্ণ। একসাথে আমরা  এগিয়ে নিয়ে যেতে পারি।
+                </p>
+                <a href="/register" class="inline-block bg-lime-500 hover:bg-lime-400 text-green-900 font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <i class="fa fa-user mr-2"></i>সদস্য দেখুন 
+                </a>
+            </div>
+        </section>
 
-    <div class="mt-12 w-full max-w-6xl flex flex-col md:flex-row gap-6 md:gap-8 items-center justify-center">
-        <div class="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-2xl transform transition-transform duration-500 hover:scale-105 hover:shadow-green-500/50">
-            <img class="w-full h-full object-cover" src="https://media.istockphoto.com/id/625736338/photo/stack-of-hands-showing-unity.jpg?s=612x612&w=0&k=20&c=20mAQjGRQ5XVKqHe2qFguqGZ4dwto6lxxinciCfnVI0=" alt="Unity and support through a stack of hands">
-        </div>
-        <div class="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-2xl transform transition-transform duration-500 hover:scale-105 hover:shadow-blue-500/50">
-            <img class="w-full h-full object-cover" src="https://media.istockphoto.com/id/1436319269/vector/group-of-diverse-people-with-arms-and-hands-raised-towards-a-hand-painted-heart-charity.jpg?s=1024x1024&w=is&k=20&c=zcKJWOUSCNFeAxcwSpTsTX5Alkb5uH1q-r0aIEqL0aI=" alt="Diverse group of people with hands raised around a heart">
-        </div>
-    </div>
+        <!-- Mission Section -->
+        <section class="py-16 bg-green-800 bg-opacity-40">
+            <div class="container mx-auto max-w-6xl px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-lime-300">আমাদের লক্ষ্য ও উদ্দেশ্য</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-green-700 bg-opacity-40 p-6 rounded-xl border border-lime-500 border-opacity-30 text-center">
+                        <div class="text-4xl text-lime-300 mb-4"><i class="fas fa-hands-helping"></i></div>
+                        <h3 class="text-xl font-semibold mb-3">সামাজিক উন্নয়ন</h3>
+                        <p class="text-lime-100">সোশাল মিডিয়ায় একে ওপরকে সার্পোট করা</p>
+                    </div>
+                    <div class="bg-green-700 bg-opacity-40 p-6 rounded-xl border border-lime-500 border-opacity-30 text-center">
+                        <div class="text-4xl text-lime-300 mb-4"><i class="fas fa-seedling"></i></div>
+                        <h3 class="text-xl font-semibold mb-3">ফেসবুক বিভিন্ন সমস্যার সমাধান করা</h3>
+                        <p class="text-lime-100">কনটেন্ট এর হ্রাস রোধ এবং আধুনিকতা তোলার জন্য কাজ করা।</p>
+                    </div>
+                    <div class="bg-green-700 bg-opacity-40 p-6 rounded-xl border border-lime-500 border-opacity-30 text-center">
+                        <div class="text-4xl text-lime-300 mb-4"><i class="fas fa-users"></i></div>
+                        <h3 class="text-xl font-semibold mb-3">সম্প্রদায় গঠন</h3>
+                        <p class="text-lime-100">একটি শক্তিশালী ও সহায়ক সম্প্রদায় গড়ে তোলা যারা একে অপরের পাশে থাকে।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <div class="mt-12">
-        <a href="/register" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-green-600 font-semibold rounded-full shadow-lg transition-all duration-300 hover:bg-green-600 hover:text-white hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300">
-          
-            <span class="text-lg" >Go to </span>
-        </a>
-    </div>
+        <!-- Image Gallery -->
+        <section class="py-16 px-4">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-lime-300">আমাদের কার্যক্রম</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="overflow-hidden rounded-2xl shadow-2xl transform transition-transform duration-500 hover:scale-105">
+                        <img class="w-full h-80 object-cover" src="https://media.istockphoto.com/id/625736338/photo/stack-of-hands-showing-unity.jpg?s=612x612&w=0&k=20&c=20mAQjGRQ5XVKqHe2qFguqGZ4dwto6lxxinciCfnVI0=" alt="Community support">
+                    </div>
+                    <div class="overflow-hidden rounded-2xl shadow-2xl transform transition-transform duration-500 hover:scale-105">
+                        <img class="w-full h-80 object-cover" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Helping hands">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-</div>
-<%- include('partials/footer') %>
+        <!-- Stats Section -->
+        <section class="py-16 bg-green-900 bg-opacity-50">
+            <div class="container mx-auto max-w-6xl px-4">
+                <div class="grid md:grid-cols-4 gap-6 text-center">
+                    <div class="p-6 bg-green-800 bg-opacity-40 rounded-xl">
+                        <div class="text-4xl font-bold text-lime-300 mb-2">৫০+</div>
+                        <div class="text-lime-100">সম্প্রদায় প্রকল্প</div>
+                    </div>
+                    <div class="p-6 bg-green-800 bg-opacity-40 rounded-xl">
+                        <div class="text-4xl font-bold text-lime-300 mb-2">১০০০+</div>
+                        <div class="text-lime-100">সক্রিয় স্বেচ্ছাসেবক</div>
+                    </div>
+                    <div class="p-6 bg-green-800 bg-opacity-40 rounded-xl">
+                        <div class="text-4xl font-bold text-lime-300 mb-2">৮</div>
+                        <div class="text-lime-100">বিভাগে কার্যক্রম</div>
+                    </div>
+                    <div class="p-6 bg-green-800 bg-opacity-40 rounded-xl">
+                        <div class="text-4xl font-bold text-lime-300 mb-2">৫+</div>
+                        <div class="text-lime-100">বছরের অভিজ্ঞতা</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 px-4">
+            <div class="container mx-auto max-w-4xl text-center bg-green-700 bg-opacity-40 p-10 rounded-2xl border border-lime-500 border-opacity-30">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-lime-300">আমাদের সাথে যুক্ত হোন</h2>
+                <p class="text-xl mb-8 text-lime-100">একটি উন্নত বাংলাদেশ গড়ে তুলতে আমাদের কার্যক্রমে অংশ নিন এবং দেশের উন্নয়নে ভূমিকা রাখুন</p>
+                <a href="/register" class="inline-block bg-orange-500 hover:bg-lime-400 text-green-900 font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg mx-2 my-2">
+                    রেজিস্টার করুন
+                </a>
+                <a href="/login" class="inline-block border border-lime-500 hover:bg-lime-500 text-lime-300 hover:text-green-900 font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 mx-2 my-2">
+                    লগইন করুন
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <%- include('partials/footer') %>
