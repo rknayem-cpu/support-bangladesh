@@ -1,5 +1,4 @@
-const app = require('../app');
+const serverless = require('serverless-http');
+const app = require('../app');  // express-generator এর app.js ফাইল থেকে import করো
 
-
-
-module.exports = app;
+module.exports.handler = serverless(app);
