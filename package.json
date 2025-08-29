@@ -15,6 +15,7 @@
     "dotenv": "^17.2.1",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-session": "^1.18.2",
     "form-data": "^4.0.4",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^9.0.2",

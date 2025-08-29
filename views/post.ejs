@@ -1,15 +1,33 @@
 <%- include('partials/header') %>
 
-<div class="w-full h-screen p-4">
+<div class="w-full h-screen flex items-center justify-center bg-gray-100 p-4">
+  <form action="/upload-post" method="POST" 
+        class="w-full max-w-md bg-white shadow-lg rounded-2xl p-6 space-y-4">
+    
+    <h2 class="text-2xl font-bold text-gray-800 text-center">Create a Post</h2>
 
-<form action="/upload-post" method="POST">
+    <!-- Title -->
+    <div>
+      <label for="title" class="block text-gray-600 mb-1">Title</label>
+      <input type="text" id="title" name="title" placeholder="Enter title" required
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+    </div>
 
+    <!-- Content -->
+    <div>
+      <label for="content" class="block text-gray-600 mb-1">Content</label>
+      <textarea id="content" name="content" placeholder="Enter content" rows="4" required
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+    </div>
 
-
-    <input type="text" placeholder="enter title" name="title">
-    <input type="text" placeholder="enter content"  name="content">
-    <input type="submit" value="submit">
-</form>
+    <!-- Submit button -->
+    <div class="flex justify-center">
+      <button type="submit"
+        class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
+        Submit
+      </button>
+    </div>
+  </form>
 </div>
 
 

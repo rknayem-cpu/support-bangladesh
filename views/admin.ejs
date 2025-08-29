@@ -1,0 +1,53 @@
+    <%- include('partials/header') %>
+
+<div class="min-h-screen bg-gray-100 p-6">
+  <div class="max-w-6xl mx-auto">
+    <!-- Page Title -->
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Admin Dashboard</h1>
+
+    <!-- Dashboard Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Pending Post -->
+      <div class="bg-white shadow-md rounded-2xl p-6 hover:shadow-xl transition">
+        <div class="flex items-center gap-4">
+          <div class="p-4 bg-yellow-100 text-yellow-600 rounded-full">
+            <i class="fas fa-clock fa-lg"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-semibold text-gray-700">Pending Post</h2>
+            <p class="text-sm text-gray-500">Review and manage pending posts</p>
+          </div>
+        </div>
+        <div class="mt-4 text-right">
+          <a href="/admin/pending" 
+             class="inline-block bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition">
+            View Posts
+          </a>
+        </div>
+      </div>
+
+      <!-- Set Live -->
+      <div class="bg-white shadow-md rounded-2xl p-6 hover:shadow-xl transition">
+        <div class="flex items-center gap-4">
+          <div class="p-4 bg-green-100 text-green-600 rounded-full">
+            <i class="fas fa-broadcast-tower fa-lg"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-semibold text-gray-700">Set Live</h2>
+            <p class="text-sm text-gray-500">Publish posts to live site</p>
+          </div>
+        </div>
+        <div class="mt-4 text-right">
+          <a href="/setlive" 
+             class="inline-block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+            Go Live
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+        <%- include('partials/footer') %>

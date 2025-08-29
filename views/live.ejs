@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+
+<div class="w-full min-h-screen p-4 ">
+
+  <div class="w-full text-center text-4xl underline mb-6">সদস্যগন</div>
+
+  <% if(user && user.length > 0) { %>
+
+  <table class="min-w-full border border-gray-700 border-collapse text-sm bg-white">
+    <thead>
+      <tr class="bg-gray-200">
+        <th class="border border-gray-700 px-4 py-2 text-left">Name</th>
+        <th class="border border-gray-700 px-4 py-2 text-left hidden md:table-cell">Email</th>
+        <th class="border border-gray-700 px-4 py-2 text-left">FB ID</th>
+        <th class="border border-gray-700 px-4 py-2 text-left text-center">Live</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% user.forEach(u => { %>
+      <tr class="">
+        <!-- Name -->
+        <td class="border border-gray-700 px-4 py-2">
+          <div class="flex gap-2 items-center">
+            <img src="<%- u.imageUrl %>" alt="logo" class="w-10 h-10 rounded-full">
+            <span><%- u.username %></span>
+          </div>
+        </td>
+
+        <!-- Email (hidden on small screens) -->
+        <td class="border border-gray-700 px-4 py-2 hidden md:table-cell"><%- u.email %></td>
+
+        <!-- FB ID -->
+        <td class="border border-gray-700 px-4 py-2">
+          <a href="/" class="text-blue-600 hover:underline">Rk Nayem</a>
+        </td>
+
+        <!-- Live Status -->
+        <td class="border border-gray-700 px-1 py-2 text-center">
+          <% if(u.live) { %>
+            <span class="inline p-2 px-4 rounded-md bg-green-500 text-white w-full">লাইভ সেট হয়েছে
+                <i class="fa fa-check ml-1"></i>
+</span>
+          <% } else { %>
+            <a href="/setlive/<%- u._id %>" 
+                class="inline p-2 rounded-md px-3 bg-black text-white w-full cursor-pointer">লাইভ সেট করুন</a>
+          <% } %>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <% } else { %>
+  <p class="text-center text-gray-500 text-lg mt-6">No members</p>
+  <% } %>
+
+</div>
+
+<%- include('partials/footer') %>

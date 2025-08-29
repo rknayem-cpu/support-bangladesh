@@ -5,6 +5,10 @@ const postSchema = new mongoose.Schema({
 
     title:String,
     content:String,
+    show:{
+        type:Boolean,
+        default:false,
+    },
     likes:[],
     user:{
         ref:'User',

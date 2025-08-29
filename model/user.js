@@ -6,6 +6,8 @@ const userSchema = new mongoose.Schema({
   email: String,
   imageUrl:String,
   emailV:String,
+  fb:String,
+  live:Boolean,
   posts:[{
     ref:'Post',
     type:mongoose.Schema.Types.ObjectId,

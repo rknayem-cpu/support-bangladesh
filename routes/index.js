@@ -238,6 +238,7 @@ router.post('/login', async (req, res) => {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  const token = req.cok
   res.render('index', { title: 'Express' });
 });
 
@@ -256,17 +257,111 @@ router.get('/login',isLogIn,(req,res)=>{
 })
 
 
+router.get('/members',async (req,res)=>{
+const user = await User.find({})
+  res.render('member',{user})
+})
+
+
 
 
 router.get('/profile', authenticate,async (req, res) => {
-  const user=await User.findOne({_id:req.user.id})
+  const user=await User.findOne({_id:req.user.id}).populate('posts')
+  
+  
   res.render('profile', {user});
 }); 
+router.get("/admin/login",checkAdminBut, (req, res) => {
+  res.send(`
+    <style>
+    #div{
+    width:100%;
+    height:98vh;
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+    }
+    </style>
+    <div id='div'>
+    <form method="POST" action="/admin/login">
+      <input type="password" name="password" placeholder="Enter Admin Password" required />
+      <button type="submit">Login</button>
+    </form>
+    </div>
+  `);
+});
+router.get("/admin-dashboard", checkAdmin, (req, res) => {
+  res.render('admin')
+});
+router.post("/admin/login", (req, res) => {
+  const { password } = req.body;
+
+  if (password === process.env.ADMIN_PASSWORD) {
+    req.session.isAdmin = true; // ✅ এখানে password না রেখে শুধু flag রাখছি
+    return res.redirect("/admin-dashboard");
+  }
+  res.send("❌ Wrong password!");
+});
+
+function checkAdmin(req, res, next) {
+  if (req.session.isAdmin) {
+    return next();
+  }
+  return res.redirect("/admin/login");
+}
+
+
+function checkAdminBut(req, res, next) {
+  if (req.session.isAdmin) {
+    return res.redirect('/admin-dashboard')
+  }
+  return next();
+}
+
+router.get("/admin-logout", (req, res) => {
+  req.session.destroy(() => {
+    res.redirect("/");
+  });
+});
 
 router.get('/logout', (req, res) => {
   res.clearCookie('token');
   res.redirect('/login')
 });
+
+
+
+
+
+router.get('/pending',(req,res)=>{
+  res.render('pending')
+})
+
+router.get('/setlive',async (req,res)=>{
+  const user=await User.find({})
+  res.render('live',{user})
+})
+router.get('/setlive/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    // Step 1: সবার live false করা
+    await User.updateMany({}, { $set: { live: false } });
+
+    // Step 2: শুধু ওই id এর user কে true করা
+    await User.findByIdAndUpdate(id, { $set: { live: true } });
+
+    res.redirect('/setlive');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+
+
+
 
 
 module.exports = router;
