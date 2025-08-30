@@ -116,11 +116,11 @@ const post = new Post({
 router.post('/update-profile', authenticate, async (req, res) => {
 
 
-  const {username,email,fb}=req.body;
+  const {username,email,fb,phoneno}=req.body;
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id, // এখানে req.user._id হবে, {user._id} নয়
-      { $set: { username:username,email:email,fb:fb } },
+      { $set: { username:username,email:email,fb:fb,phoneno:phoneno } },
       { new: true } // আপডেট হওয়া নতুন ইউজার রিটার্ন করার জন্য
     );
 

@@ -2,7 +2,34 @@
 
 <div class="w-full min-h-screen p-4 ">
 
-  <div class="w-full text-center text-4xl  mb-6">সদস্যগন(<span class='text-orange-500'><%= user.length %> জন</span>)</div>
+  <div class="w-full text-center text-4xl  mb-1"><span class="underline">সদস্যগন</span>(<span class='text-orange-500'><%= user.length %> জন</span>)</div>
+
+
+<% 
+const liveuser = user.filter(u => u.live === true) 
+
+%>
+
+<% liveuser.forEach(live =>{ %>
+
+  <div class="w-fit mb-2 shadow-md bg-black p-1 px-2 rounded-lg flex justify-center items-center
+  gap-1 ">
+    <div>
+      <span class="text-white">আজকে লাইভ করবেন</span><br>
+      <span class="text-white text-center">সময় রাত ৯টা</span>
+    
+    </div>
+    <div class="flex gap-2 items-center  w-fit rounded-lg p-1 pr-2 relative">
+            <img src="<%- live.imageUrl %>" alt="logo" class="w-14 h-14 rounded-full">
+            <span class="text-green-500 relative top-[6px] font-semibold "><%- live.username %></span>
+            <img src="https://i.postimg.cc/Y9NRRsGV/5822037-removebg-preview.png" 
+            class="w-10 absolute -top-1 left-[53%]"
+            alt="live">
+          </div>
+  </div>
+
+<% }) %>
+
 
   <% if(user && user.length > 0) { %>
 
@@ -12,7 +39,7 @@
         <th class="border border-gray-700 px-4 py-2 text-center">নাম</th>
         <th class="border border-gray-700 px-4 py-2 text-center hidden md:table-cell">ইমেইল</th>
         <th class="border border-gray-700 px-4 py-2 text-center">ফেসবুক</th>
-        <th class="border border-gray-700 px-4 py-2 text-center">লাইভ আছে কি?</th>
+        <th class="border border-gray-700 px-4 py-2 text-center text-red-500" >লাইভ আছে কি?</th>
       </tr>
     </thead>
     <tbody>

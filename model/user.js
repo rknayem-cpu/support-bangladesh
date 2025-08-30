@@ -8,6 +8,11 @@ const userSchema = new mongoose.Schema({
   emailV:String,
   fb:String,
   live:Boolean,
+  phoneno:Number,
+  pshow:{
+    type:Boolean,
+    default:false,
+  },
   posts:[{
     ref:'Post',
     type:mongoose.Schema.Types.ObjectId,
