@@ -11,8 +11,14 @@
 
     <% Posts.forEach(post =>{ %>
 
-<div class="bg-blue-300  rounded-lg h-[50vh] p-2 shadow-md">
+<div class="bg-blue-300  rounded-lg h-[50vh] p-2 shadow-md relative">
+<div class="flex gap-1 items-center mb-2 ">
+<img src="<%- post.user.imageUrl %>" alt="user" class="w-8 h-8 rounded-full">
+<span><%= post.user.username %></span> 
 
+<p class="text-sm absolute top-3 text-yellow-800 right-3"><%= post.dateit || '' %></p>
+
+</div>
     <h1 class="text-white"><%= post.title %></h1>
     <div>
         <%- post.content %>

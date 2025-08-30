@@ -18,6 +18,16 @@ const userSchema = new mongoose.Schema({
     type:mongoose.Schema.Types.ObjectId,
   }],
   password: String,
+  dateit: { 
+        type: String, 
+        default: () => {
+            return new Date().toLocaleDateString("bn-BD", { 
+                day: "numeric", 
+                month: "long", 
+                year: "numeric"
+            });
+        }
+    },
 });
 
 // Hash password before save
