@@ -2,7 +2,7 @@
 
 <div class="w-full min-h-screen p-4 ">
 
-  <div class="w-full text-center text-4xl underline mb-6">সদস্যগন</div>
+  <div class="w-full text-center text-4xl  mb-6">সদস্যগন(<span class='text-orange-500'><%= user.length %> জন</span>)</div>
 
   <% if(user && user.length > 0) { %>
 
@@ -29,7 +29,13 @@
         <td class="border border-gray-700 px-4 py-2 text-center hidden md:table-cell"><%- u.email %></td>
 
         <td class="border border-gray-700 px-4 py-2 text-center">
-          <a href="/" class="text-blue-600 hover:underline">Rk Nayem</a>
+
+          <% if(u.fb){ %>
+        <a href="<%- u.fb %>" class="text-blue-600 hover:underline"><%- u.username %></a>
+          <% } else{ %>
+         <span></span>
+         <% } %>
+          
         </td>
 
         <td class="border border-gray-700 px-4 py-2 text-center">

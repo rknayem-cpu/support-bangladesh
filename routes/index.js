@@ -116,12 +116,11 @@ const post = new Post({
 router.post('/update-profile', authenticate, async (req, res) => {
 
 
-  const {username,email}=req.body;
-
+  const {username,email,fb}=req.body;
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id, // এখানে req.user._id হবে, {user._id} নয়
-      { $set: { username:username,email:email } },
+      { $set: { username:username,email:email,fb:fb } },
       { new: true } // আপডেট হওয়া নতুন ইউজার রিটার্ন করার জন্য
     );
 
@@ -129,10 +128,7 @@ router.post('/update-profile', authenticate, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.json({
-      message: 'Profile updated successfully',
-      user: updatedUser
-    });
+    res.redirect('/profile')
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Something went wrong', error: err.message });
@@ -238,8 +234,14 @@ router.post('/login', async (req, res) => {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  const token = req.cok
-  res.render('index', { title: 'Express' });
+const token = req.cookies.token;
+
+if(token){
+  return res.render('index', { token: true });
+} else{
+return res.render('index', { token: false });
+}
+  
 });
 
 
@@ -332,13 +334,34 @@ router.get('/logout', (req, res) => {
 
 
 
+router.get('/approve-post/:id',checkAdmin,async (req,res)=>{
+const id= req.params.id;
+await Post.findByIdAndUpdate(
+id,
+{$set:{show:true}},
+{new:true}
+)
 
+res.redirect('/admin/pending')
 
-router.get('/pending',(req,res)=>{
-  res.render('pending')
 })
 
-router.get('/setlive',async (req,res)=>{
+
+router.get('/admindl/:id',checkAdmin,async (req,res)=>{
+const id= req.params.id;
+await Post.findByIdAndDelete(id)
+
+res.redirect('/admin-dashboard')
+
+})
+
+
+router.get('/admin/pending',checkAdmin,async (req,res)=>{
+  const posts = await Post.find({})
+  res.render('pending',{posts})
+})
+
+router.get('/setlive',checkAdmin,async (req,res)=>{
   const user=await User.find({})
   res.render('live',{user})
 })
@@ -358,6 +381,23 @@ router.get('/setlive/:id', async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+
+router.get('/postdl/:id',authenticate,async (req,res)=>{
+
+const id = req.params.id;
+await Post.findByIdAndDelete(id)
+
+res.redirect('/profile')
+
+
+})
+
+
+
+
+
+
 
 
 

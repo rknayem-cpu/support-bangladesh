@@ -1,57 +1,150 @@
 <%- include('partials/header') %>
 
-<div class="flex items-center justify-center h-auto p-4">
-    <div class="bg-transparent p-8 md:p-12 rounded-2xl relative bottom-6
-     w-full max-w-sm mx-auto text-center transform transition duration-500 ease-in-out hover:scale-102">
-        <% if  (!user.imageUrl){%>
-<div class="w-24 h-24 mx-auto mb-6 rounded-full bg-purple-100 flex items-center justify-center">
-            <svg class="w-16 h-16 text-purple-600" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+<div class="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 py-8 px-4">
+  <div class="max-w-6xl mx-auto">
+    <!-- Profile Card -->
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl mb-10">
+      <div class="md:flex">
+        <!-- Profile Image Section -->
+        <div class="md:w-1/3 p-8 flex flex-col items-center justify-center bg-gradient-to-b from-purple-100 to-indigo-200">
+          <% if (!user.imageUrl) { %>
+            <div class="w-40 h-40 rounded-full bg-gradient-to-r from-purple-400 to-indigo-500 flex items-center justify-center shadow-lg mb-6">
+              <svg class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
+              </svg>
+            </div>
+          <% } else { %>
+            <img src="<%- user.imageUrl %>" class="w-40 h-40 rounded-full object-cover border-4 border-white shadow-lg mb-6">
+          <% } %>
+          
+          <h2 class="text-2xl font-bold text-gray-800 mb-1"><%= user.username %></h2>
+          <p class="text-purple-600 font-medium"><%= user.email %></p>
+          
+          <div class="mt-6 flex items-center bg-purple-100 rounded-full px-4 py-2">
+            <span class="text-purple-800 font-semibold">
+              <%- user.posts.length %> Post<%- user.posts.length !== 1 ? 's' : '' %>
+            </span>
+          </div>
         </div>
-        <%} else{%>
-<img src="<%- user.imageUrl %>" class="w-24 h-24 mx-auto mb-6 rounded-full bg-purple-100 flex items-center justify-center">
+        
+        <!-- Profile Info Section -->
+        <div class="md:w-2/3 p-8">
+          <h1 class="text-3xl font-bold text-gray-800 mb-6">Profile Dashboard</h1>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <div class="bg-purple-50 p-4 rounded-lg">
+              <h3 class="text-sm font-semibold text-purple-700 uppercase mb-2">Account Status</h3>
+              <p class="text-lg font-medium text-gray-800">Verified User 
+                </p>
+            </div>
             
-        
-       <% } %>
-        
-
-        <h1 class="text-3xl font-extrabold text-gray-800 mb-2">
-            Welcome, <%= user.username %>!
-        </h1>
-        <p class="text-lg font-medium text-gray-600 mb-6">
-            <span class="text-purple-500">Email:</span> <%= user.email %>
-        </p>
-
-        <div class="space-y-4 ">
-            <a href="#" class="block w-full py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-300 transform hover:scale-105">
-                View Profile
+            <div class="bg-indigo-50 p-4 rounded-lg">
+              <h3 class="text-sm font-semibold text-indigo-700 uppercase mb-2">Member Since</h3>
+              <p class="text-lg font-medium text-gray-800"><%- new Date().toLocaleDateString() %></p>
+            </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-4">
+            <a href="#" class="flex items-center justify-center py-3 px-6 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition-all duration-300 transform hover:-translate-y-1">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+              View Profile
             </a>
-            <a href="/update-profile" class="block w-full py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-300 transform hover:scale-105">
-                Edit Profile
+            
+            <a href="/update-profile" class="flex items-center justify-center py-3 px-6 bg-white border border-purple-600 text-purple-600 font-semibold rounded-lg shadow-md hover:bg-purple-50 transition-all duration-300 transform hover:-translate-y-1">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+              </svg>
+              Edit Profile
             </a>
-              <hr>
-              <a href="/upload-post" class="block w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-300 transform hover:scale-105">
-               <i class="fa fa-pencil mr-2"></i>Add post
+            
+            <a href="/upload-post" class="flex items-center justify-center py-3 px-6 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+              Add Post
             </a>
-            <hr>
-            <a href="/logout" class="block  w-full py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition duration-300">
-                Log Out
+            
+            <a href="/logout" class="flex items-center justify-center py-3 px-6 bg-gray-100 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-200 transition-all duration-300 transform hover:-translate-y-1">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+              </svg>
+              Log Out
             </a>
+          </div>
         </div>
+      </div>
     </div>
+    
+    <!-- Posts Section -->
+    <div class="mb-10">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Your Posts</h2>
+        <span class="bg-purple-100 text-purple-800 text-sm font-semibold px-3 py-1 rounded-full">
+          <%- user.posts.length %> Post<%- user.posts.length !== 1 ? 's' : '' %>
+        </span>
+      </div>
+      <% 
+      // Filter posts where show property is false
+      const Posts = user.posts.filter(post => post.show === true);
+    %>
+      <% if (Posts.length > 0) { %>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% Posts.forEach(post => { %>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1">
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-4">
+                  <h3 class="text-xl font-bold text-gray-800 truncate"><%- post.title %></h3>
+                  <a href="/postdl/<%= post._id %>" class="text-gray-400 hover:text-red-500 transition-colors duration-300 ml-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                  </a>
+                </div>
+                <p class="text-gray-600 line-clamp-3"><%- post.content %></p>
+                <div class="mt-4 flex items-center text-sm text-gray-500">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <%- new Date().toLocaleDateString() %>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class=" rounded-xl  p-8 text-center">
+          <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <h3 class="text-xl font-semibold text-gray-700 mb-2">কোনো পোস্ট নেই</h3>
+          <a href="/upload-post" class="inline-flex items-center px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors duration-300">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            আপনার প্রথম পোস্ট তৈরি করুন
+          </a>
+        </div>
+      <% } %>
+    </div>
+  </div>
 </div>
 
-<div class="-mt-9">
-     <hr class=""><br>
-<div class="posts grid grid-cols-3 p-3">
-   
-<% user.posts.forEach(post => {%>
-<div class="p-3 rounded-lg  bg-orange-500">
-    <h1><%- post.title %></h1>
-    <p><%- post.content %></p>
-</div>
-<% }) %>
-</div>
-</div>
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  @media (max-width: 768px) {
+    .bg-gradient-to-b {
+      background: linear-gradient(to bottom, #faf5ff, #e0e7ff);
+    }
+  }
+</style>
+
 <%- include('partials/footer') %>
