@@ -4,7 +4,7 @@ var session = require('express-session')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var cors = require('cors')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -20,7 +20,10 @@ app.use(session({
   saveUninitialized:true,
   cookie:{secure:false}
 }))
-
+app.use(cors({
+  origin: "*",  // বা আপনার ডোমেইন ঠিকানা দিন
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

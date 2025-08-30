@@ -15,27 +15,43 @@ const Post = require('../model/post');
 let SECRET = 'mamun'
 
 
-const upload = multer({ dest: "uploads/" });
 
-router.post("/upload",authenticate, upload.single("image"), async (req, res) => {
  
+
+const streamifier = require('streamifier');
+
+// Multer Setup - In-memory storage
+const upload = multer({ storage: multer.memoryStorage() }); // Store files in memory (RAM)
+
+router.post("/upload", authenticate, upload.single("image"), async (req, res) => {
   try {
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: "myuploads",
+    // Create a stream from the buffer
+    const bufferStream = streamifier.createReadStream(req.file.buffer);
+
+    // Upload the file stream to Cloudinary
+    const result = await new Promise((resolve, reject) => {
+      const cloudinaryStream = cloudinary.uploader.upload_stream(
+        { folder: "myuploads" },
+        (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        }
+      );
+      bufferStream.pipe(cloudinaryStream); // Pipe the buffer stream to Cloudinary
     });
 
-    // লোকাল থেকে টেম্প ফাইল ডিলিট
-    fs.unlinkSync(req.file.path);
- const user = await User.findByIdAndUpdate(
-      req.user.id, // এখানে req.user._id হবে, {user._id} নয়
-      { $set: { imageUrl:result.secure_url} },
-      { new: true } // আপডেট হওয়া নতুন ইউজার রিটার্ন করার জন্য
+    // Cloudinary থেকে পাওয়া ফাইলের URL ডাটাবেসে আপডেট করা
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { $set: { imageUrl: result.secure_url } },
+      { new: true }
     );
-    // res.json({
-    //   success: true,
-    //   url: result.secure_url,
-    // });
-    res.redirect('/profile')
+
+    // সফলভাবে আপলোড হওয়ার পর প্রোফাইলে রিডাইরেক্ট করা
+    res.redirect('/profile');
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
