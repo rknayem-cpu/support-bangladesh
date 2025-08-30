@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+
+
+<% 
+      const Posts = posts.filter(post => post.show === true);
+ %>
+ <br>
+<h1 class="w-full text-center text-3xl font-semibold">All Posts</h1>
+<div class="w-full min-h-screen h-auto grid grid-cols-1 md:grid-cols-3 p-3">
+
+
+    <% Posts.forEach(post =>{ %>
+
+<div class="bg-blue-300  rounded-lg h-[50vh] p-2 shadow-md">
+
+    <h1 class="text-white"><%= post.title %></h1>
+    <div>
+        <%- post.content %>
+    </div>
+</div>
+
+
+   <% }) %>
+
+
+</div>
+
+
+<%- include('partials/footer') %>

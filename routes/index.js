@@ -290,24 +290,7 @@ router.get('/profile', authenticate,async (req, res) => {
   res.render('profile', {user});
 }); 
 router.get("/admin/login",checkAdminBut, (req, res) => {
-  res.send(`
-    <style>
-    #div{
-    width:100%;
-    height:98vh;
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-    }
-    </style>
-    <div id='div'>
-    <form method="POST" action="/admin/login">
-      <input type="password" name="password" placeholder="Enter Admin Password" required />
-      <button type="submit">Login</button>
-    </form>
-    </div>
-  `);
+  res.render('adminlog')
 });
 router.get("/admin-dashboard", checkAdmin, (req, res) => {
   res.render('admin')
@@ -411,7 +394,12 @@ res.redirect('/profile')
 
 
 
+router.get('/allpost',async (req,res)=>{
 
+  const posts = await Post.find({})
+res.render('allpost',{posts})
+
+})
 
 
 

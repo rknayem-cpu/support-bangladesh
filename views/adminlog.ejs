@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+
+<div id="div" class="w-full h-screen flex items-center justify-center bg-gray-800">
+    <form method="POST" action="/admin/login" class="bg-gray-900 p-8 rounded-lg shadow-xl w-full max-w-md">
+        <h2 class="text-white text-2xl font-semibold mb-6 text-center">Admin Login</h2>
+        
+        <!-- Password Input -->
+        <input type="password" name="password" placeholder="Enter Admin Password" required class="w-full p-4 mb-4 border border-gray-600 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:border-orange-500 transition duration-300 ease-in-out" />
+
+        <!-- Login Button -->
+        <button type="submit" class="w-full cursor-pointer  py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-400 transition duration-300 ease-in-out">
+            Login
+        </button>
+    </form>
+</div>
+
+<%- include('partials/footer') %>
