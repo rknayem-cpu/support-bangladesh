@@ -2,11 +2,14 @@ var express = require('express');
 const jwt = require('jsonwebtoken')
 const User = require('../model/user');
 const multer = require("multer");
-const fs = require('fs')
 const cloudinary = require('../config/cloudinary')
 const nodemailer = require('nodemailer');
 
+const fetch = require('node-fetch');
+const path = require('path');
+const { fileURLToPath } = require('url');
 
+const axios = require('axios');
 const PendingUser = require('../model/pendingUser');
 var router = express.Router();
 const verificationEmailTemplate = require('../lib/verifyEmail');
@@ -111,20 +114,7 @@ router.get('/upload-post',(req,res)=>{
 })
 
 
-router.post('/upload-post',authenticate,async (req,res)=>{
-  const {title,content} = req.body;
-  const user= await User.findOne({_id:req.user.id})
-const post = new Post({
-  title:title,
-  content:content,
-  user:req.user.id
-})
-  await post.save();
-  user.posts.push(post._id)
-  await user.save()
-  res.redirect('/profile')
- 
-})
+
 
 
 
@@ -382,6 +372,23 @@ router.get('/setlive/:id', async (req, res) => {
 });
 
 
+router.post('/upload-post',authenticate,async (req,res)=>{
+  const {title,content} = req.body;
+     const user= await User.findOne({_id:req.user.id})
+const post = new Post({
+  title:title,
+  content:content,
+  user:req.user.id
+})
+  await post.save();
+  user.posts.push(post._id)
+  await user.save()
+  res.redirect('/profile')
+ 
+ 
+ 
+})
+
 router.get('/postdl/:id',authenticate,async (req,res)=>{
 
 const id = req.params.id;
@@ -404,8 +411,93 @@ res.render('allpost',{posts})
 
 
 
+router.get("/api/fb-embed", async (req, res) => {
+  try {
+    let fbLink = req.query.url;
+    console.log(fbLink);
+     // ?url=https://www.facebook.com/share/v/xxxx/
+    if (!fbLink || !fbLink.startsWith("https://www.facebook.com/" )) {
+      return res.status(400).json({ error: "Please provide a Facebook video link (?url=...)" });
+    }
+
+    // Follow redirect to get final video link
+    let response = await axios.get(fbLink, { maxRedirects: 5 });
+let finalUrl = response.request.res.responseUrl;
+
+    // Encode final URL
+    let encoded = encodeURIComponent(finalUrl);
+
+    // Embed URL
+let embedUrl = `https://www.facebook.com/plugins/video.php?height=476&href=${encoded}&show_text=false`;
+
+    // Return iframe
+    res.json({
+  iframe: `
+    <iframe 
+  class="absolute inset-0 w-full h-full"
+  src="${embedUrl}"
+  style="border:none;overflow:hidden"
+  scrolling="no"
+  frameborder="0"
+  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+  allowfullscreen>
+</iframe>
+
+  `
+});
 
 
 
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error while fetching video link" });
+  }
+});
+
+router.get('/test',(req,res)=>{
+  res.render('test')
+})
+
+
+
+router.post('/save-phone',authenticate,async (req,res)=>{
+
+const isVisible = req.body.showPhone === 'true';
+
+if(isVisible){
+await User.findByIdAndUpdate(
+  req.user.id,
+  {$set:{pshow:true}},
+  {new:true}
+)
+return res.redirect('/update-profile')
+} else{
+
+await User.findByIdAndUpdate(
+  req.user.id,
+  {$set:{pshow:false}},
+  {new:true}
+)
+
+
+return res.redirect('/update-profile')
+
+}
+
+
+
+})
+
+
+
+router.get('/liver/:id',async (req,res)=>{
+  const id= req.params.id;
+  await User.findByIdAndUpdate(
+    id,
+    {$set:{live:false}},
+    {new:true}
+  )
+  res.redirect('/setlive')
+  })
 
 module.exports = router;

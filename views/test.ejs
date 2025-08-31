@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+  <h2>Facebook Video Embed Converter</h2>
+  <p>Paste any Facebook video link (share/v, reel, videos):</p>
+  <input type="text" id="fbLink" placeholder="Enter Facebook video link">
+  <button onclick="getEmbed()">Convert</button>
+
+  <div id="video"></div>
+
+  <script>
+    async function getEmbed() {
+      let link = document.getElementById("fbLink").value.trim();
+      if (!link) {
+        alert("Please enter a Facebook video link!");
+        return;
+      }
+
+      try {
+        let res = await fetch(`/api/fb-embed?url=${encodeURIComponent(link)}`);
+        let data = await res.json();
+
+        if (data.error) {
+          document.getElementById("video").innerHTML = `<p style="color:red">${data.error}</p>`;
+        } else {
+          document.getElementById("video").innerHTML = data.iframe;
+        }
+      } catch (err) {
+        document.getElementById("video").innerHTML = `<p style="color:red">Error fetching embed code</p>`;
+      }
+    }
+  </script>
+
+<%- include('partials/footer') %>

@@ -33,11 +33,14 @@ const liveuser = user.filter(u => u.live === true)
 
   <% if(user && user.length > 0) { %>
 
-  <table class="min-w-full border border-gray-700 border-collapse text-sm bg-white">
+  <table class="min-w-full border border-gray-700 border-collapse text-sm bg-white mt-3">
     <thead>
       <tr class="bg-gray-200 text-green-800">
         <th class="border border-gray-700 px-4 py-2 text-center">নাম</th>
         <th class="border border-gray-700 px-4 py-2 text-center hidden md:table-cell">ইমেইল</th>
+        
+                <th class="border border-gray-700 px-4 py-2 text-center hidden md:table-cell">মোবাইল নং</th>
+
         <th class="border border-gray-700 px-4 py-2 text-center">ফেসবুক</th>
         <th class="border border-gray-700 px-4 py-2 text-center text-red-500" >লাইভ আছে কি?</th>
       </tr>
@@ -54,7 +57,16 @@ const liveuser = user.filter(u => u.live === true)
 
         <!-- Email column hidden on small screens -->
         <td class="border border-gray-700 px-4 py-2 text-center hidden md:table-cell"><%- u.email %></td>
+<td class="border border-gray-700 px-4 py-2 text-center hidden md:table-cell">
+  <% if(u.pshow){ %>
+        <span>0<%- u.phoneno %></span>
 
+        <% } else{ %>
+
+    <span></span>
+       <% } %>
+
+        </td>
         <td class="border border-gray-700 px-4 py-2 text-center">
 
           <% if(u.fb){ %>

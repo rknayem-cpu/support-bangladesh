@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
 
-<div class="w-full h-screen flex items-center justify-center bg-gray-100 p-4">
-  <form action="/upload-post" method="POST" 
+<div class="w-full h-screen flex items-center justify-center p-4">
+  <form id="postForm" action="/upload-post" method="POST" 
         class="w-full max-w-md bg-white shadow-lg rounded-2xl p-6 space-y-4">
     
     <h2 class="text-2xl font-bold text-gray-800 text-center">Create a Post</h2>
@@ -15,10 +15,13 @@
 
     <!-- Content -->
     <div>
-      <label for="content" class="block text-gray-600 mb-1">Content</label>
-      <textarea id="content" name="content" placeholder="Enter content" rows="4" required
+      <label for="content" class="block text-gray-600 mb-1">Facebook Video Link</label>
+      <textarea id="content" name="content" placeholder="Paste Facebook video link" rows="2" required
         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
     </div>
+
+    <!-- Video Preview -->
+    <div id="video" class="w-full"></div>
 
     <!-- Submit button -->
     <div class="flex justify-center">
@@ -30,6 +33,64 @@
   </form>
 </div>
 
+<script>
+  const form = document.getElementById("postForm");
+  const contentEl = document.getElementById("content");
+  let latestIframe = ""; // iframe cache
+
+  // Enter চাপলে preview load
+  contentEl.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      getEmbed();
+    }
+  });
+
+  async function getEmbed() {
+    const content = contentEl.value.trim();
+
+    if (!content) {
+      alert("Please enter a Facebook video link!");
+      return "";
+    }
+
+    try {
+      let res = await fetch(`/api/fb-embed?url=${encodeURIComponent(content)}`);
+      let data = await res.json();
+
+      if (data.error) {
+        document.getElementById("video").innerHTML =
+          `<p class="text-red-600">${data.error}</p>`;
+        return "";
+      } else {
+        document.getElementById("video").innerHTML = data.iframe;
+        latestIframe = data.iframe; // save iframe
+        return latestIframe;
+      }
+    } catch (err) {
+      document.getElementById("video").innerHTML =
+        `<p class="text-red-600">Error fetching embed code</p>`;
+      return "";
+    }
+  }
+
+  // Submit-এর আগে নিশ্চিত করব content ফিল্ডে iframe আছে
+  form.addEventListener("submit", async (e) => {
+    if (!latestIframe) {
+      e.preventDefault(); // আগে থামাই
+      const iframeCode = await getEmbed(); // এখন fetch করি
+
+      if (iframeCode) {
+        contentEl.value = iframeCode; // iframe বসালাম
+        form.submit(); // আবার submit করলাম
+      } else {
+        alert("Invalid Facebook link!");
+      }
+    } else {
+      contentEl.value = latestIframe; // যদি আগে preview হয়ে থাকে
+    }
+  });
+</script>
 
 
 <%- include('partials/footer') %>

@@ -103,40 +103,11 @@
               Facebook Profile
             </label>
             <input type="text" name="phoneno" id="fb" placeholder="ফোন নম্বর যোগ করুন"
-                value="<%- user.phone || '' %>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-300">
+                value="<%- user.phoneno || '' %>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-300">
           </div>
 
 
-<form method="POST" action="/save-phone-visibility" class="flex items-center space-x-3">
-  <!-- Hidden input for false -->
-  <input type="hidden" name="showPhone" value="false">
-  <!-- Toggle Switch -->
-  <label class="flex items-center cursor-pointer relative">
-    <input type="checkbox" id="switch" name="showPhone" value="true" class="sr-only">
-    
-    <div id="track" class="w-14 h-7 bg-gray-300 rounded-full transition-colors"></div>
-    <div id="knob" class="w-6 h-6 bg-white rounded-full shadow-md absolute left-0.5 top-0.5 transition-all duration-300"></div>
-    <span class="ml-3 text-sm font-medium">Show Phone Number</span>
-  </label>
 
-  <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Save</button>
-</form>
-<script>
-  const checkbox = document.getElementById("switch");
-  const knob = document.getElementById("knob");
-  const track = document.getElementById("track");
-  checkbox.addEventListener("change", () => {
-    if (checkbox.checked) {
-      knob.style.transform = "translateX(28px)"; // ডানে সরাবে
-      track.classList.remove("bg-gray-300");
-      track.classList.add("bg-green-500");
-    } else {
-      knob.style.transform = "translateX(0px)"; // আবার বামে যাবে
-      track.classList.remove("bg-green-500");
-      track.classList.add("bg-gray-300");
-    }
-  });
-</script>
 
 
 
@@ -153,6 +124,82 @@
           </div>
         </form>
         
+
+
+<form id="toggleForm" class="flex items-center space-x-3 mt-2">
+  <!-- Hidden input -->
+  <input type="hidden" name="showPhone" value="false" id="show">
+
+  <!-- Toggle Switch -->
+  <label class="flex items-center cursor-pointer relative">
+    <input type="checkbox" id="switch" class="sr-only">
+    
+    <div id="track" class="w-14 h-7 bg-gray-300 rounded-full transition-colors"></div>
+    <div id="knob" class="w-6 h-6 bg-white rounded-full shadow-md absolute left-0.5 top-0.5 transition-all duration-300"></div>
+    <span class="ml-3 text-sm font-medium">Show Phone Number</span>
+  </label>
+
+  <!-- Submit Button (will be handled via JS) -->
+  <button id="submitBtn" type="button" class="px-4 py-2 bg-blue-600 text-white rounded-lg">
+    Save
+  </button>
+</form>
+
+<script>
+  const checkbox = document.getElementById("switch");
+  const knob = document.getElementById("knob");
+  const track = document.getElementById("track");
+  const show = document.getElementById("show");
+  const form = document.getElementById("toggleForm");
+  const submitBtn = document.getElementById("submitBtn");
+
+  // Checkbox change
+const sp = localStorage.getItem('sp')
+
+if(sp === 'true'){
+  setT()
+} else{
+ setF()
+}
+  function setT(){
+     knob.style.transform = "translateX(28px)";
+      track.classList.remove("bg-gray-300");
+      track.classList.add("bg-green-500");
+      show.value = "true";
+  }
+
+function setF(){
+
+ knob.style.transform = "translateX(0px)";
+      track.classList.remove("bg-green-500");
+      track.classList.add("bg-gray-300");
+      show.value = "false";
+
+}
+
+
+
+  checkbox.addEventListener("change", () => {
+    if (checkbox.checked) {
+     setT()
+     localStorage.setItem('sp','true')
+    } else {
+     setF()
+      localStorage.setItem('sp','false')
+    }
+  });
+
+  // Submit manually via JS
+  submitBtn.addEventListener("click", () => {
+    console.log("Form submitting with value:", show.value); // optional
+    form.method = "POST";
+    form.action = "/save-phone";
+    form.submit();
+  });
+</script>
+
+
+
         <!-- Additional Options -->
         <div class="mt-8 pt-6 border-t border-gray-200">
           <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
