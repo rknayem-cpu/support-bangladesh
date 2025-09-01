@@ -7,6 +7,7 @@ var logger = require('morgan');
 var cors = require('cors')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var favicon = require('serve-favicon');
 
 var app = express();
 
@@ -24,6 +25,8 @@ app.use(cors({
   origin: "*",  // বা আপনার ডোমেইন ঠিকানা দিন
   methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
+
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
