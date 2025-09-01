@@ -5,9 +5,7 @@ const multer = require("multer");
 const cloudinary = require('../config/cloudinary')
 const nodemailer = require('nodemailer');
 
-const fetch = require('node-fetch');
-const path = require('path');
-const { fileURLToPath } = require('url');
+
 
 const axios = require('axios');
 const PendingUser = require('../model/pendingUser');
