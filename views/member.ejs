@@ -49,7 +49,7 @@ const liveuser = user.filter(u => u.live === true)
       <% user.forEach(u => { %>
       <tr class="hover:bg-gray-300/50">
         <td class="border border-gray-700 px-4 py-2">
-          <div class="flex gap-2 items-center">
+          <div class="flex gap-2 items-center" onclick="window.location.href='/others/<%- u._id %>';">
             <img src="<%- u.imageUrl %>" alt="logo" class="w-10 h-10 rounded-full">
             <span><%- u.username %></span>
           </div>

@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+
+<div class="max-w-4xl w-full min-h-screen flex flex-col justify-center  mx-auto">
+        
+        <!-- Responsive iframe container -->
+        <div class="bg-gray-300/50 mb-4 relative sm:static bottom-12 rounded-xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-xl p-2">
+            <div class="relative" style="padding-top: 56.25%"> <!-- 16:9 Aspect Ratio -->
+                <%- post.content %>
+            </div>
+            
+            <div class="p-4 md:p-6">
+                <h2 class="text-xl font-semibold text-gray-800"><%= post.title %></h2>
+                
+                <div class="flex justify-between items-center mt-4">
+                    <div class="flex space-x-2">
+                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">#facebook</span>
+                        <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">#video</span>
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">#embed</span>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+       
+    </div>
+
+
+<%- include('partials/footer') %>

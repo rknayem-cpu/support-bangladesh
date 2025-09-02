@@ -580,4 +580,28 @@ router.post('/update-password', async (req, res) => {
   }
 });
 
+
+
+router.get('/post/:id',async (req,res)=>{
+
+  const id = req.params.id;
+  const post = await Post.findById(id).populate('user');
+  res.render('seepost',{post})
+
+})
+
+
+
+
+router.get('/others/:id',authenticate,async (req,res)=>{
+
+
+  if(req.user.id==req.params.id){
+    return res.redirect('/profile')
+  }
+  const id = req.params.id;
+  const user = await User.findById(id).populate('posts');
+  res.render('other',{user})
+
+})
 module.exports = router;
