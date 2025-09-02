@@ -13,6 +13,13 @@ const userSchema = new mongoose.Schema({
     type:Boolean,
     default:false,
   },
+  passwordresetToken: {
+    type: String,
+    default: null,
+   expires: 300 
+    
+  },
+
   posts:[{
     ref:'Post',
     type:mongoose.Schema.Types.ObjectId,

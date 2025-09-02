@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+
+
+<div class="w-full h-screen flex justify-center items-center">
+
+<div class="w-1/2 h-1/2 flex flex-col items-center justify-center relative bottom-18">
+
+<form action="/forget" method="post" id="form">
+
+<label for="email" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+    Enter your email  to  set  password
+</label>
+ <% if(err){ %>
+         <p class="text-red-500"><%= err %></p>
+        <% } %>
+<input type="text" required name="email" id="email" placeholder="Enter your email" class="w-full border border-gray-300 rounded-md px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+
+<button  id="button" class="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">Submit</button>
+
+</form>
+
+
+
+</div>
+
+</div>
+
+
+<script>
+
+let email = document.getElementById('email')
+let button = document.querySelector('#button')
+let form = document.querySelector('#form')
+
+
+button.addEventListener('click', function(e) {
+    e.preventDefault(); // prevent default form submit
+    if(email.value === ''){
+        alert('Please enter your email');
+    } else {
+        localStorage.setItem('email', email.value);
+        form.submit();
+    }
+});
+
+
+
+
+
+
+
+</script>
+
+
+<%- include('partials/footer') %>

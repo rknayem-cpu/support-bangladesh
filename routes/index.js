@@ -4,7 +4,7 @@ const User = require('../model/user');
 const multer = require("multer");
 const cloudinary = require('../config/cloudinary')
 const nodemailer = require('nodemailer');
-
+const bcrypt = require('bcryptjs');
 
 
 const axios = require('axios');
@@ -219,7 +219,7 @@ router.post('/login', async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user || !(await user.comparePassword(password))) {
-    return res.status(401).redirect('/login')
+    return res.status(401).render('login',{err:"Invalid username or password"});
   }
 
   const token = generateToken(user);
@@ -259,7 +259,7 @@ router.get('/register',isLogIn,(req,res)=>{
 router.get('/login',isLogIn,(req,res)=>{
 
 
-  res.render('login');
+  res.render('login',{err:""});
 })
 
 
@@ -426,7 +426,7 @@ let finalUrl = response.request.res.responseUrl;
     let encoded = encodeURIComponent(finalUrl);
 
     // Embed URL
-let embedUrl = `https://www.facebook.com/plugins/video.php?height=476&href=${encoded}&show_text=false`;
+let embedUrl = `https://www.facebook.com/plugins/video.php?href=${encoded}&show_text=false`;
 
     // Return iframe
     res.json({
@@ -497,5 +497,87 @@ router.get('/liver/:id',async (req,res)=>{
   )
   res.redirect('/setlive')
   })
+
+
+
+  router.get('/forget-password',(req,res)=>{
+    res.render('forget',{err:''})
+  })
+
+router.post('/forget', async (req, res) => {
+  const email = req.body.email;
+  const user = await User.findOne({ email });
+
+  if (user) {
+    // Always 6 digits
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+    await User.findByIdAndUpdate(user._id, { passwordresetToken: code }, { new: true });
+
+    let transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Reset password OTP - সার্পোট বাংলাদেশ",
+      html: verificationEmailTemplate(code),
+    });
+
+    return res.redirect('/forget');
+  } else {
+    return res.render('forget',{err:'please enter correct Email'});
+  }
+});
+
+router.get('/forget', (req, res) => {
+  res.render('forgetotp',{err:''});
+});
+
+
+router.post('/setpassword', async (req, res) => {
+  const otp = req.body.otp;
+  const user = await User.findOne({ passwordresetToken: otp });
+
+  if (user) {
+   
+    req.session.resetEmail = user.email;
+    return res.redirect('/setpassword');
+  } else {
+    return res.render('forgetotp',{err:'please enter correct OTP'});
+  }
+});
+
+router.get('/setpassword', (req, res) => {
+  res.render('setpass');
+});
+
+// ---------------- UPDATE PASSWORD ----------------
+router.post('/update-password', async (req, res) => {
+  const { password } = req.body;
+  const email = req.session.resetEmail; // get stored email
+
+  if (email && password) {
+    const hashedPassword = await bcrypt.hash(password, 10); // secure hashing
+
+    await User.findOneAndUpdate(
+      { email },
+      { $set: { password: hashedPassword, passwordresetToken: null } }, // clear OTP
+      { new: true }
+    );
+
+    req.session.resetEmail = null; // clear session
+    return res.redirect('/login');
+  } else {
+    return res.redirect('/forget-password');
+  }
+});
 
 module.exports = router;
