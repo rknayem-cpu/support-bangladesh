@@ -15,17 +15,34 @@
         <span class="font-semibold"><%= post.user.username %></span>
         <p class="text-xs text-yellow-800 absolute top-0 right-0"><%= post.dateit || '' %></p>
       </div>
+<% 
+const iframeMatch = post.content.match(/src="([^"]+)"/);
+ const iframeSrc = iframeMatch ? iframeMatch[1] : null;
 
+%>
       <!-- Title -->
       <h1 class="text-black mb-3 mt-1 font-medium text-lg"><%= post.title %></h1>
 <a href="/post/<%= post._id %>" class="
   relative bottom-3  text-black rounded hover:text-blue-400 " >পোস্ট দেখুন</a>
-      <!-- Video Wrapper -->
-            <div class="relative bottom-0 sm:bottom-3 overflow-hidden" style="padding-top: 56.25%"> <!-- 16:9 Aspect Ratio -->      
-        
+
+
+<% if(iframeSrc.includes('https://www.youtube.com')){ %>
+ <!-- Video Wrapper -->
+            <div class="relative bottom-0 sm:bottom-3 overflow-hidden" 
+            > <!-- 16:9 Aspect Ratio -->      
           <%- post.content %> <!-- already iframe -->
-     
       </div>
+<% } else { %>
+ <!-- Video Wrapper -->
+            <div class="relative bottom-0 sm:bottom-3 overflow-hidden" 
+            style="padding-top: 56.25%"> <!-- 16:9 Aspect Ratio -->      
+          <%- post.content %> <!-- already iframe -->
+      </div>
+
+<% } %>
+     
+
+
 
     </div>
   <% }) %>
@@ -34,14 +51,20 @@
 
 <style>
 /* Make iframe fully responsive inside wrapper */
-.video-wrapper iframe {
+ iframe {
   width: 100% !important;
   height: 100% !important;
   border: 0;
   display: block;
   object-fit: contain;
 }
-
+.responsive-iframe-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+    }
 /* Optional: adjust padding for small screens if needed */
 @media (max-width: 768px) {
   .video-wrapper {

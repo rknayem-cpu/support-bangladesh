@@ -410,6 +410,11 @@ res.render('allpost',{posts})
 
 
 router.get("/api/fb-embed", async (req, res) => {
+  if(req.query.url.startsWith('<iframe')){
+   return  res.json({
+  iframe:req.query.url})
+
+  }
   try {
     let fbLink = req.query.url;
     console.log(fbLink);

@@ -1,12 +1,32 @@
 <%- include('partials/header') %>
 
+
+<% 
+const iframeMatch = post.content.match(/src="([^"]+)"/);
+ const iframeSrc = iframeMatch ? iframeMatch[1] : null;
+
+%>
+
+
+
+
 <div class="max-w-4xl w-full min-h-screen flex flex-col justify-center  mx-auto">
         
         <!-- Responsive iframe container -->
-        <div class="bg-gray-300/50 mb-4 relative sm:static bottom-12 rounded-xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-xl p-2">
-            <div class="relative" style="padding-top: 56.25%"> <!-- 16:9 Aspect Ratio -->
+        <div class="bg-gray-300/50 mb-4 relative sm:static bottom-12 rounded-xl shadow-2xl 
+        overflow-hidden transition-all duration-300 hover:shadow-xl p-2">
+            
+            <% if(iframeSrc.includes('https://www.youtube.com')){ %>
+
+            <div class="relative h-[85vh]" > <!-- 16:9 Aspect Ratio -->
                 <%- post.content %>
             </div>
+            
+              <% } else{ %>
+ <div class="relative h-autos" style="padding-top: 56.25%"> <!-- 16:9 Aspect Ratio -->
+                <%- post.content %>
+            </div>
+         <% } %>
             
             <div class="p-4 md:p-6">
                 <h2 class="text-xl font-semibold text-gray-800"><%= post.title %></h2>
@@ -24,6 +44,15 @@
         
        
     </div>
+<style>
 
+     iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+  display: block;
+  object-fit: contain;
+}
+</style>
 
 <%- include('partials/footer') %>
