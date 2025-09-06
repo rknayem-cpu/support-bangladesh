@@ -338,13 +338,13 @@ router.get('/admindl/:id',checkAdmin,async (req,res)=>{
 const id= req.params.id;
 await Post.findByIdAndDelete(id)
 
-res.redirect('/admin-dashboard')
+res.redirect('/admin/pending')
 
 })
 
 
 router.get('/admin/pending',checkAdmin,async (req,res)=>{
-  const posts = await Post.find({})
+  const posts = await Post.find({}).populate('user');
   res.render('pending',{posts})
 })
 

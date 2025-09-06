@@ -28,27 +28,26 @@
     <!-- Posts Grid -->
     <% if (pendingPosts.length > 0) { %>
       <div class="w-full min-h-screen grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <% pendingPosts.forEach(post => { 
+        <% pendingPosts.forEach(post => { %>
+          
+          <%
           const iframeMatch = post.content.match(/src="([^"]+)"/);
           const iframeSrc = iframeMatch ? iframeMatch[1] : '';
         %>
-          <div class="bg-white rounded-xl shadow-2xl 
+          <div class="bg-white rounded-xl shadow-2xl relative
           overflow-hidden hover:shadow-xl border-l border-green-500 md:h-82 h-[76vh] ">
             <div class="p-5">
+                    <p class="absolute flex gap-2 top-2 right-3"><img src="<%- post.user.imageUrl %>" class="w-5 h-5 rounded-full ">  <span><%- post.user.username %></span></p>
               
               <!-- Post Header -->
               <div class="flex justify-between items-start mb-4">
                 <a href="/post/<%= post._id %>" class="cursor-pointer">
-                  <h3 class="text-xl font-bold text-gray-800 truncate">
+                  <h3 class="text-xl mt-2 text-gray-800 truncate">
                     <%- post.title %>
                   </h3>
                 </a>
                 <a href="/postdl/<%= post._id %>" class="text-gray-400 hover:text-red-500 transition duration-300 ml-2">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                    </path>
-                  </svg>
+                  
                 </a>
               </div>
 
